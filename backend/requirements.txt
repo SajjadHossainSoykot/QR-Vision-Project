@@ -1,0 +1,11 @@
+opencv-python
+qrcode[pil]
+pillow
+numpy
+matplotlib
+fastapi
+uvicorn
+python-multipart
+jupyter
+notebook
+ipykernel
