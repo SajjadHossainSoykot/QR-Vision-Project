@@ -35,3 +35,4 @@ def decode_qr(image_path: str):
 
 if __name__ == "__main__":
     decode_qr("sample_data/generated_qr/generated_qr.png")
+    # decode_qr("sample_data/generated_qr/invalid_qr.png")
