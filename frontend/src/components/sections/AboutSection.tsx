@@ -1,10 +1,17 @@
 import {
+  Camera,
   Code2,
   ExternalLink,
+  FileImage,
   GraduationCap,
   Layers3,
   Lightbulb,
+  MonitorSmartphone,
+  QrCode,
   Rocket,
+  Server,
+  ShieldCheck,
+  UploadCloud,
 } from "lucide-react";
 
 import {
@@ -73,13 +80,72 @@ const techStack = [
   "NumPy",
   "Pillow",
   "qrcode",
+  "Webcam Scanner",
   "Render",
   "Vercel",
 ];
 
+const featureCards = [
+  {
+    icon: <QrCode size={22} />,
+    title: "QR Generation",
+    description:
+      "Users can generate QR codes from text or URLs, preview the generated QR image, and download it directly from the frontend.",
+  },
+  {
+    icon: <UploadCloud size={22} />,
+    title: "Image Upload Decode",
+    description:
+      "Users can upload or drag-and-drop QR images and decode them using backend API endpoints connected with FastAPI and OpenCV.",
+  },
+  {
+    icon: <Camera size={22} />,
+    title: "Live Webcam Scanner",
+    description:
+      "The current version includes a working webcam scanner that can scan QR codes directly from the browser camera in real time.",
+  },
+  {
+    icon: <FileImage size={22} />,
+    title: "Multiple Decode Methods",
+    description:
+      "The project supports basic decode, preprocessing-based decode, and mathematical/computer vision based QR detection methods.",
+  },
+  {
+    icon: <Server size={22} />,
+    title: "Deployed Backend API",
+    description:
+      "The backend API is deployed on Render and provides live endpoints for QR generation, image upload, QR decoding, and API documentation.",
+  },
+  {
+    icon: <MonitorSmartphone size={22} />,
+    title: "Responsive Frontend",
+    description:
+      "The frontend is deployed on Vercel and designed with a clean responsive layout for desktop and mobile browser usage.",
+  },
+];
+
+const deploymentLinks = [
+  {
+    label: "Live Frontend",
+    href: "https://qr-vision-ss.vercel.app",
+  },
+  {
+    label: "Live Backend API",
+    href: "https://qr-vision-ss-api.onrender.com",
+  },
+  {
+    label: "Swagger Docs",
+    href: "https://qr-vision-ss-api.onrender.com/docs",
+  },
+  {
+    label: "GitHub Repository",
+    href: "https://github.com/SajjadHossainSoykot/QR-Vision-Project",
+  },
+];
+
 export default function AboutSection() {
   return (
-    <div className="rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
+    <section className="rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
       <div className="mb-6 flex items-start gap-3">
         <div className="shrink-0 rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <GraduationCap size={22} />
@@ -94,11 +160,12 @@ export default function AboutSection() {
             QR Vision SS
           </h2>
 
-          <p className="mt-2 max-w-full text-sm leading-6 text-(--muted-foreground)">
-            QR Vision SS is an academic and portfolio project that combines QR
-            code technology, digital image processing, FastAPI backend
-            development, and modern Next.js frontend design.
-          </p>
+          <JustifiedText className="mt-2 max-w-full text-sm text-(--muted-foreground)">
+            QR Vision SS is an academic and portfolio-based full-stack computer
+            vision project that combines QR code technology, digital image
+            processing, FastAPI backend development, OpenCV experiments, live
+            webcam QR scanning, and modern Next.js frontend design.
+          </JustifiedText>
         </div>
       </div>
 
@@ -109,41 +176,87 @@ export default function AboutSection() {
           <InfoCard
             icon={<GraduationCap size={22} />}
             title="Academic Background"
-            description="This project is inspired by Digital Signal and Image Processing laboratory concepts. It transforms QR code generation, detection, decoding, and OpenCV-based image processing ideas into an interactive web-based platform."
+            description="This project is inspired by ICT-4104 Digital Signal and Image Processing Laboratory concepts. It converts QR code generation, image upload, image preprocessing, QR detection, and OpenCV-based processing ideas into a deployed web application."
           />
 
           <InfoCard
             icon={<Rocket size={22} />}
             title="Project Purpose"
-            description="The main purpose of this project is to help learners understand how QR codes can be generated, uploaded, detected, decoded, and connected with a full-stack API-based web application."
+            description="The main purpose of this project is to help students, developers, and learners understand how QR codes can be generated, uploaded, detected, decoded, scanned through a webcam, and connected with a full-stack API-based platform."
           />
 
           <InfoCard
             icon={<Lightbulb size={22} />}
             title="Learning Goal"
-            description="Besides QR and image processing, this project is also a learning journey for FastAPI routing, backend response handling, Next.js App Router, reusable frontend components, API integration, and responsive UI design."
+            description="Besides QR and image processing, this project is also a practical learning journey for FastAPI routing, backend response handling, Next.js App Router, reusable frontend components, REST API integration, deployment, and responsive UI design."
           />
         </div>
+      </div>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {featureCards.map((feature) => (
+          <InfoCard
+            key={feature.title}
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+          />
+        ))}
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <InfoCard
           icon={<Layers3 size={22} />}
           title="Core Features"
-          description="QR generation, QR image upload, drag-and-drop upload, uploaded QR preview, multiple decode methods, decoded answer display, API response preview, warning/error states, and theme toggling."
+          description="QR generation, QR image upload, drag-and-drop upload, uploaded QR preview, live webcam scanner, multiple decode methods, decoded answer display, API response preview, warning/error states, and theme toggling."
         />
 
         <InfoCard
           icon={<Code2 size={22} />}
           title="Backend Implementation"
-          description="The backend is built with Python, FastAPI, OpenCV, Pillow, NumPy, and qrcode. It exposes API endpoints for QR generation and multiple QR decoding methods."
+          description="The backend is built with Python, FastAPI, Uvicorn, OpenCV, Pillow, NumPy, qrcode, and python-multipart. It exposes API endpoints for QR generation and multiple QR decoding methods."
         />
 
         <InfoCard
           icon={<Code2 size={22} />}
           title="Frontend Implementation"
-          description="The frontend is built with Next.js, TypeScript, Tailwind CSS, CSS variables, Lucide icons, React Icons, responsive layout, sticky navbar, and reusable UI components."
+          description="The frontend is built with Next.js, React, TypeScript, Tailwind CSS, CSS variables, Lucide icons, React Icons, reusable components, responsive layout, sticky navbar, and webcam scanning support."
         />
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-(--border) bg-(--muted) p-5">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-(--primary) text-(--primary-foreground)">
+            <ShieldCheck size={22} />
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold text-(--card-foreground)">
+              Deployment Status
+            </h3>
+            <p className="text-sm text-(--muted-foreground)">
+              Frontend and backend are both deployed and connected.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          {deploymentLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center justify-between gap-3 rounded-xl border border-(--border) bg-(--card) px-4 py-3 text-sm font-semibold text-(--card-foreground) transition hover:-translate-y-0.5 hover:opacity-90"
+            >
+              <span>{link.label}</span>
+              <ExternalLink
+                size={16}
+                className="shrink-0 text-(--muted-foreground) transition group-hover:text-(--card-foreground)"
+              />
+            </a>
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 rounded-2xl border border-(--border) bg-(--muted) p-5">
@@ -170,13 +283,14 @@ export default function AboutSection() {
 
         <JustifiedText className="mt-2 text-sm text-(--muted-foreground)">
           QR Vision SS is created for academic learning, digital image
-          processing practice, QR code technology demonstration, and full-stack
-          project development practice. It is not intended for high-security QR
-          verification, banking authentication, payment validation, or
+          processing practice, QR code technology demonstration, computer vision
+          experimentation, and full-stack project development practice. It is
+          not intended for high-security QR verification, banking
+          authentication, payment validation, banking login verification, or
           production-level identity verification systems.
         </JustifiedText>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -229,8 +343,9 @@ function DeveloperCard() {
           QR Vision SS was created to transform digital image processing and QR
           code concepts into an interactive full-stack web platform. Through
           this project, I explored how to connect a FastAPI backend with a
-          modern Next.js frontend and how to present computer vision features in
-          a clean user interface.
+          modern Next.js frontend and how to present QR generation, QR decoding,
+          image upload, API response handling, and webcam scanning in a clean
+          user interface.
         </JustifiedText>
       </div>
 
