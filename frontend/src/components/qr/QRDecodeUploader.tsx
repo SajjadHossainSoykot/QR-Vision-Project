@@ -56,7 +56,7 @@ export default function QRDecodeUploader() {
 
   return (
     <div className="min-w-0 rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
-      <div className="mb-5 flex items-center gap-3">
+      <div className="mb-6 flex items-center gap-3">
         <div className="shrink-0 rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <ScanLine size={22} />
         </div>
@@ -66,68 +66,93 @@ export default function QRDecodeUploader() {
             Decode QR Code
           </h2>
           <p className="text-sm text-(--muted-foreground)">
-            Upload a QR image and test different detection methods.
+            Upload a QR image and preview the decoded API response.
           </p>
         </div>
       </div>
 
-      <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
-        <Upload className="mb-3 text-(--muted-foreground)" size={32} />
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="min-w-0 space-y-5">
+          <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
+            <Upload className="mb-3 text-(--muted-foreground)" size={32} />
 
-        <p className="font-semibold text-(--card-foreground)">
-          Click to upload QR image
-        </p>
+            <p className="font-semibold text-(--card-foreground)">
+              Click to upload QR image
+            </p>
 
-        <p className="mt-1 text-sm text-(--muted-foreground)">
-          PNG, JPG, JPEG supported
-        </p>
+            <p className="mt-1 text-sm text-(--muted-foreground)">
+              PNG, JPG, JPEG supported
+            </p>
 
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
-        />
-      </label>
-
-      {preview && (
-        <div className="mt-5 min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
-          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
-            <FileImage size={16} />
-            Uploaded Image Preview
-          </div>
-
-          <div className="flex justify-center overflow-hidden rounded-xl">
-            <img
-              src={preview}
-              alt="Uploaded QR"
-              className="max-h-72 max-w-full rounded-lg bg-white object-contain p-2"
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
             />
+          </label>
+
+          {preview && (
+            <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
+                <FileImage size={16} />
+                Uploaded Image Preview
+              </div>
+
+              <div className="flex justify-center overflow-hidden rounded-xl">
+                <img
+                  src={preview}
+                  alt="Uploaded QR"
+                  className="max-h-80 max-w-full rounded-lg bg-white object-contain p-2"
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {(["decode-qr", "decode-qr-preprocess", "decode-qr-math"] as DecodeEndpoint[]).map(
+              (endpoint) => (
+                <button
+                  key={endpoint}
+                  onClick={() => handleDecode(endpoint)}
+                  disabled={loadingMode !== null}
+                  className="flex min-w-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {loadingMode === endpoint ? (
+                    <Loader2 className="shrink-0 animate-spin" size={16} />
+                  ) : (
+                    <ScanLine className="shrink-0" size={16} />
+                  )}
+
+                  <span className="break-words text-center">
+                    {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
+                  </span>
+                </button>
+              )
+            )}
           </div>
         </div>
-      )}
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-        {(["decode-qr", "decode-qr-preprocess", "decode-qr-math"] as DecodeEndpoint[]).map(
-          (endpoint) => (
-            <button
-              key={endpoint}
-              onClick={() => handleDecode(endpoint)}
-              disabled={loadingMode !== null}
-              className="flex min-w-0 items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {loadingMode === endpoint ? (
-                <Loader2 className="shrink-0 animate-spin" size={16} />
-              ) : (
-                <ScanLine className="shrink-0" size={16} />
-              )}
+        <div className="min-w-0">
+          <div className="h-full min-h-72 rounded-xl border border-(--border) bg-(--muted) p-4">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
+              API Response Preview
+            </div>
 
-              <span className="break-words text-center">
-                {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
-              </span>
-            </button>
-          )
-        )}
+            {result ? (
+              <pre className="max-h-[420px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
+                {JSON.stringify(result, null, 2)}
+              </pre>
+            ) : (
+              <div className="flex min-h-56 items-center justify-center rounded-lg border border-dashed border-(--border) bg-(--card) p-6 text-center">
+                <p className="max-w-sm text-sm leading-6 text-(--muted-foreground)">
+                  Upload a QR image and click a decode method. The raw API
+                  response will appear here.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <ResultCard result={result} error={error} />
