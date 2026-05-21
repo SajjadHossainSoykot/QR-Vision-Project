@@ -66,15 +66,15 @@ export default function QRDecodeUploader() {
             Decode QR Code
           </h2>
           <p className="text-sm text-(--muted-foreground)">
-            Upload a QR image and preview the decoded API response.
+            Upload a QR image, decode it, and inspect the response.
           </p>
         </div>
       </div>
 
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[1fr_360px]">
         <div className="min-w-0 space-y-5">
-          <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
-            <Upload className="mb-3 text-(--muted-foreground)" size={32} />
+          <label className="flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
+            <Upload className="mb-3 text-(--muted-foreground)" size={34} />
 
             <p className="font-semibold text-(--card-foreground)">
               Click to upload QR image
@@ -91,23 +91,6 @@ export default function QRDecodeUploader() {
               onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
             />
           </label>
-
-          {preview && (
-            <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
-              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
-                <FileImage size={16} />
-                Uploaded Image Preview
-              </div>
-
-              <div className="flex justify-center overflow-hidden rounded-xl">
-                <img
-                  src={preview}
-                  alt="Uploaded QR"
-                  className="max-h-80 max-w-full rounded-lg bg-white object-contain p-2"
-                />
-              </div>
-            </div>
-          )}
 
           <div className="grid gap-3 sm:grid-cols-3">
             {(["decode-qr", "decode-qr-preprocess", "decode-qr-math"] as DecodeEndpoint[]).map(
@@ -133,25 +116,27 @@ export default function QRDecodeUploader() {
           </div>
         </div>
 
-        <div className="min-w-0">
-          <div className="h-full min-h-72 rounded-xl border border-(--border) bg-(--muted) p-4">
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
-              API Response Preview
-            </div>
-
-            {result ? (
-              <pre className="max-h-[420px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
-                {JSON.stringify(result, null, 2)}
-              </pre>
-            ) : (
-              <div className="flex min-h-56 items-center justify-center rounded-lg border border-dashed border-(--border) bg-(--card) p-6 text-center">
-                <p className="max-w-sm text-sm leading-6 text-(--muted-foreground)">
-                  Upload a QR image and click a decode method. The raw API
-                  response will appear here.
-                </p>
-              </div>
-            )}
+        <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
+            <FileImage size={16} />
+            Uploaded QR Preview
           </div>
+
+          {preview ? (
+            <div className="flex min-h-72 items-center justify-center overflow-hidden rounded-xl border border-(--border) bg-(--card) p-4">
+              <img
+                src={preview}
+                alt="Uploaded QR"
+                className="max-h-72 max-w-full rounded-lg bg-white object-contain p-2 shadow-sm"
+              />
+            </div>
+          ) : (
+            <div className="flex min-h-72 items-center justify-center rounded-xl border border-dashed border-(--border) bg-(--card) p-6 text-center">
+              <p className="max-w-xs text-sm leading-6 text-(--muted-foreground)">
+                Uploaded QR image preview will appear here.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
