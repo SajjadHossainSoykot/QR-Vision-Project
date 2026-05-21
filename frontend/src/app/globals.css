@@ -16,6 +16,14 @@
   --primary-foreground: #ffffff;
 
   --input: #ffffff;
+
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --success-text: #166534;
+
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --error-text: #b91c1c;
 }
 
 .dark {
@@ -34,6 +42,14 @@
   --primary-foreground: #0f172a;
 
   --input: #020617;
+
+  --success-bg: #052e16;
+  --success-border: #166534;
+  --success-text: #86efac;
+
+  --error-bg: #450a0a;
+  --error-border: #991b1b;
+  --error-text: #fca5a5;
 }
 
 * {
