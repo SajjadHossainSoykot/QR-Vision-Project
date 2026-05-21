@@ -4,8 +4,11 @@ import cv2
 def start_webcam_qr_scanner(camera_index: int = 0):
     """
     Real-time QR code scanner using webcam and OpenCV.
-    
-    Press 'q' to quit.
+
+    Controls:
+    - Press q to quit
+    - Press ESC to quit
+    - Closing the window also exits
     """
 
     cap = cv2.VideoCapture(camera_index)
@@ -15,59 +18,80 @@ def start_webcam_qr_scanner(camera_index: int = 0):
         return
 
     detector = cv2.QRCodeDetector()
+    window_name = "QR Vision - Live Webcam Scanner"
+
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
     print("Webcam QR scanner started.")
-    print("Press 'q' to quit.")
+    print("Click on the camera window, then press 'q' or ESC to quit.")
 
-    while True:
-        ret, frame = cap.read()
+    last_data = None
 
-        if not ret:
-            print("Could not read frame from webcam.")
-            break
+    try:
+        while True:
+            ret, frame = cap.read()
 
-        data, bbox, _ = detector.detectAndDecode(frame)
+            if not ret:
+                print("Could not read frame from webcam.")
+                break
 
-        if bbox is not None:
-            bbox = bbox.astype(int)
+            data, bbox, _ = detector.detectAndDecode(frame)
 
-            # Draw bounding box around QR code
-            for i in range(len(bbox[0])):
-                point1 = tuple(bbox[0][i])
-                point2 = tuple(bbox[0][(i + 1) % len(bbox[0])])
+            if bbox is not None:
+                bbox = bbox.astype(int)
 
-                cv2.line(
-                    frame,
-                    point1,
-                    point2,
-                    (0, 255, 0),
-                    2
-                )
+                for i in range(len(bbox[0])):
+                    point1 = tuple(bbox[0][i])
+                    point2 = tuple(bbox[0][(i + 1) % len(bbox[0])])
 
-            # Show decoded data if available
-            if data:
-                x = bbox[0][0][0]
-                y = bbox[0][0][1]
+                    cv2.line(
+                        frame,
+                        point1,
+                        point2,
+                        (0, 255, 0),
+                        2
+                    )
 
-                cv2.putText(
-                    frame,
-                    data,
-                    (x, y - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7,
-                    (0, 255, 0),
-                    2
-                )
+                if data:
+                    x = bbox[0][0][0]
+                    y = bbox[0][0][1]
 
-                print("Decoded QR Data:", data)
+                    cv2.putText(
+                        frame,
+                        data,
+                        (x, y - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.7,
+                        (0, 255, 0),
+                        2
+                    )
 
-        cv2.imshow("QR Vision - Live Webcam Scanner", frame)
+                    # Print only when new data is detected
+                    if data != last_data:
+                        print("Decoded QR Data:", data)
+                        last_data = data
 
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
+            cv2.imshow(window_name, frame)
 
-    cap.release()
-    cv2.destroyAllWindows()
+            key = cv2.waitKey(1) & 0xFF
+
+            if key == ord("q") or key == 27:
+                print("Scanner stopped by user.")
+                break
+
+            # Exit if user closes OpenCV window manually
+            if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:
+                print("Scanner window closed.")
+                break
+
+    except KeyboardInterrupt:
+        print("\nScanner stopped by keyboard interrupt.")
+
+    finally:
+        cap.release()
+        cv2.destroyAllWindows()
+        cv2.waitKey(1)
+        print("Webcam released and windows closed.")
 
 
 if __name__ == "__main__":
