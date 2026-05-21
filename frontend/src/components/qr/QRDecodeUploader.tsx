@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FileImage, Loader2, ScanLine, Upload } from "lucide-react";
 import { decodeQRCode, type DecodeEndpoint } from "@/lib/api";
-import ResultCard from "@/components/qr/ResultCard";
+import ResultCard from "./ResultCard";
 
 export default function QRDecodeUploader() {
   const [file, setFile] = useState<File | null>(null);
@@ -55,24 +55,32 @@ export default function QRDecodeUploader() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-(--border) bg-(--card) p-6 text-(--card-foreground) shadow-sm transition-colors">
       <div className="mb-5 flex items-center gap-3">
-        <div className="rounded-xl bg-slate-900 p-2 text-white">
+        <div className="rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <ScanLine size={22} />
         </div>
 
         <div>
-          <h2 className="text-xl font-bold text-slate-900">Decode QR Code</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className="text-xl font-bold text-(--card-foreground)">
+            Decode QR Code
+          </h2>
+          <p className="text-sm text-(--muted-foreground)">
             Upload a QR image and test different detection methods.
           </p>
         </div>
       </div>
 
-      <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center transition hover:border-slate-900 hover:bg-slate-100">
-        <Upload className="mb-3 text-slate-500" size={32} />
-        <p className="font-semibold text-slate-800">Click to upload QR image</p>
-        <p className="mt-1 text-sm text-slate-500">PNG, JPG, JPEG supported</p>
+      <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
+        <Upload className="mb-3 text-(--muted-foreground)" size={32} />
+
+        <p className="font-semibold text-(--card-foreground)">
+          Click to upload QR image
+        </p>
+
+        <p className="mt-1 text-sm text-(--muted-foreground)">
+          PNG, JPG, JPEG supported
+        </p>
 
         <input
           type="file"
@@ -83,8 +91,8 @@ export default function QRDecodeUploader() {
       </label>
 
       {preview && (
-        <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
-          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-700">
+        <div className="mt-5 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
             <FileImage size={16} />
             Uploaded Image Preview
           </div>
@@ -104,7 +112,7 @@ export default function QRDecodeUploader() {
               key={endpoint}
               onClick={() => handleDecode(endpoint)}
               disabled={loadingMode !== null}
-              className="flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loadingMode === endpoint ? (
                 <Loader2 className="animate-spin" size={16} />

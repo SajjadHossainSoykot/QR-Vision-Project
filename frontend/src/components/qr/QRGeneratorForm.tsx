@@ -35,15 +35,17 @@ export default function QRGeneratorForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-(--border) bg-(--card) p-6 text-(--card-foreground) shadow-sm transition-colors">
       <div className="mb-5 flex items-center gap-3">
-        <div className="rounded-xl bg-slate-900 p-2 text-white">
+        <div className="rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <QrCode size={22} />
         </div>
 
         <div>
-          <h2 className="text-xl font-bold text-slate-900">Generate QR Code</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className="text-xl font-bold text-(--card-foreground)">
+            Generate QR Code
+          </h2>
+          <p className="text-sm text-(--muted-foreground)">
             Create QR codes from text, links, or WiFi data.
           </p>
         </div>
@@ -53,22 +55,30 @@ export default function QRGeneratorForm() {
         value={data}
         onChange={(e) => setData(e.target.value)}
         placeholder="Example: https://qr-vision-ss.vercel.app"
-        className="min-h-32 w-full resize-none rounded-xl border border-slate-300 p-4 text-sm outline-none transition focus:border-slate-900"
+        className="min-h-32 w-full resize-none rounded-xl border border-(--border) bg-(--input) p-4 text-sm text-(--foreground) outline-none transition placeholder:text-(--muted-foreground) focus:ring-2 focus:ring-(--primary)"
       />
 
-      {error && <p className="mt-3 text-sm font-medium text-red-600">{error}</p>}
+      {error && (
+        <p className="mt-3 text-sm font-medium text-(--error-text)">
+          {error}
+        </p>
+      )}
 
       <button
         onClick={handleGenerate}
         disabled={loading}
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-(--primary) px-5 py-3 font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {loading ? <Loader2 className="animate-spin" size={18} /> : <QrCode size={18} />}
+        {loading ? (
+          <Loader2 className="animate-spin" size={18} />
+        ) : (
+          <QrCode size={18} />
+        )}
         {loading ? "Generating..." : "Generate QR"}
       </button>
 
       {qrUrl && (
-        <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-5 text-center">
+        <div className="mt-6 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
           <img
             src={qrUrl}
             alt="Generated QR Code"
@@ -78,7 +88,7 @@ export default function QRGeneratorForm() {
           <a
             href={qrUrl}
             download="qr-code.png"
-            className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-100"
+            className="mt-4 inline-flex items-center gap-2 rounded-xl border border-(--border) bg-(--card) px-4 py-2 text-sm font-semibold text-(--card-foreground) shadow-sm transition hover:bg-(--muted)"
           >
             <Download size={16} />
             Download QR
