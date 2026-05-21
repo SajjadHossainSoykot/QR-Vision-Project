@@ -3,7 +3,7 @@ import { QrCode, ScanLine, Sparkles } from "lucide-react";
 export default function HeroSection() {
   return (
     <header className="mb-10 text-center">
-      <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-(--primary) text-(--primary-foreground) shadow-md">
+      <div className="mx-auto my-5 mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-(--primary) text-(--primary-foreground) shadow-md">
         <QrCode size={34} />
       </div>
 
