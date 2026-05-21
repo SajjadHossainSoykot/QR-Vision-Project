@@ -1,7 +1,7 @@
 "use client";
 
 import { DragEvent, useState } from "react";
-import { FileImage, Loader2, ScanLine, Upload } from "lucide-react";
+import { FileImage, Loader2, ScanLine, Server, Upload } from "lucide-react";
 import { decodeQRCode, type DecodeEndpoint } from "@/lib/api";
 import ResultCard from "./ResultCard";
 
@@ -79,7 +79,9 @@ export default function QRDecodeUploader() {
       const data = await decodeQRCode(file, endpoint);
       setResult(data);
     } catch {
-      setError("QR decoding failed. Try another image or check backend.");
+      setError(
+        "QR decoding failed. The backend may still be waking up, or the image may not contain a readable QR code. Please try again in a few seconds."
+      );
     } finally {
       setLoadingMode(null);
     }
@@ -116,7 +118,7 @@ export default function QRDecodeUploader() {
             onDrop={handleDrop}
             className={`flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition ${
               isDragging
-                ? "border-(--primary) bg-(--card) scale-[1.01]"
+                ? "scale-[1.01] border-(--primary) bg-(--card)"
                 : "border-(--border) bg-(--muted) hover:opacity-85"
             }`}
           >
@@ -145,27 +147,41 @@ export default function QRDecodeUploader() {
           </label>
 
           <div className="grid gap-3 sm:grid-cols-3">
-            {(["decode-qr", "decode-qr-preprocess", "decode-qr-math"] as DecodeEndpoint[]).map(
-              (endpoint) => (
-                <button
-                  key={endpoint}
-                  onClick={() => handleDecode(endpoint)}
-                  disabled={loadingMode !== null}
-                  className="flex min-w-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
-                >
-                  {loadingMode === endpoint ? (
-                    <Loader2 className="shrink-0 animate-spin" size={16} />
-                  ) : (
-                    <ScanLine className="shrink-0" size={16} />
-                  )}
+            {(
+              [
+                "decode-qr",
+                "decode-qr-preprocess",
+                "decode-qr-math",
+              ] as DecodeEndpoint[]
+            ).map((endpoint) => (
+              <button
+                key={endpoint}
+                onClick={() => handleDecode(endpoint)}
+                disabled={loadingMode !== null}
+                className="flex min-w-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {loadingMode === endpoint ? (
+                  <Loader2 className="shrink-0 animate-spin" size={16} />
+                ) : (
+                  <ScanLine className="shrink-0" size={16} />
+                )}
 
-                  <span className="break-words text-center">
-                    {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
-                  </span>
-                </button>
-              )
-            )}
+                <span className="break-words text-center">
+                  {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
+                </span>
+              </button>
+            ))}
           </div>
+
+          {loadingMode && (
+            <div className="flex items-start gap-2 rounded-xl border border-(--border) bg-(--muted) p-3 text-sm leading-6 text-(--muted-foreground)">
+              <Server className="mt-0.5 shrink-0 animate-pulse" size={16} />
+              <p>
+                Starting QR Vision API... The first request may take a few
+                seconds because the free backend can wake up from sleep.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
