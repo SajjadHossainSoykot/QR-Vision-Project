@@ -87,7 +87,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           Decode Error
         </div>
 
-        <p className="break-words text-sm text-(--error-text)">{error}</p>
+        <p className="wrap-break-word text-sm text-(--error-text)">{error}</p>
       </div>
     );
   }
@@ -109,7 +109,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
             </p>
 
             <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-              <p className="break-words text-base font-medium leading-7 text-yellow-800">
+              <p className="wrap-break-word text-base font-medium leading-7 text-yellow-800">
                 {message || "The image was processed, but no readable QR text was found."}
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
             API Response Preview
           </div>
 
-          <pre className="max-h-80 max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
+          <pre className="max-h-80 max-w-full overflow-auto whitespace-pre-wrap wrap-break-word rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
             {JSON.stringify(result, null, 2)}
           </pre>
         </div>
@@ -151,7 +151,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           </p>
 
           <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
-            <p className="break-words text-xl font-semibold leading-8 text-(--foreground)">
+            <p className="wrap-break-word text-xl font-semibold leading-8 text-(--foreground)">
               {decodedText}
             </p>
           </div>
@@ -183,7 +183,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           API Response Preview
         </div>
 
-        <pre className="max-h-80 max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
+        <pre className="max-h-80 max-w-full overflow-auto whitespace-pre-wrap wrap-break-word rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
           {JSON.stringify(result, null, 2)}
         </pre>
       </div>
