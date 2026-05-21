@@ -1,4 +1,4 @@
-import { CheckCircle2, Copy, FileJson, XCircle } from "lucide-react";
+import { CheckCircle2, Copy, XCircle } from "lucide-react";
 
 type ResultCardProps = {
   result: unknown;
@@ -20,17 +20,9 @@ function getDecodedText(result: unknown): string {
 
   const data = result as QRApiResponse;
 
-  if (typeof data.data === "string" && data.data.trim()) {
-    return data.data;
-  }
-
-  if (typeof data.text === "string" && data.text.trim()) {
-    return data.text;
-  }
-
-  if (typeof data.result === "string" && data.result.trim()) {
-    return data.result;
-  }
+  if (typeof data.data === "string" && data.data.trim()) return data.data;
+  if (typeof data.text === "string" && data.text.trim()) return data.text;
+  if (typeof data.result === "string" && data.result.trim()) return data.result;
 
   return "";
 }
@@ -75,7 +67,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
     <div className="mt-6 min-w-0 rounded-xl border border-(--success-border) bg-(--success-bg) p-4 transition-colors sm:p-5">
       <div className="mb-4 flex items-center gap-2 font-bold text-(--success-text)">
         <CheckCircle2 size={20} />
-        Decoded Result
+        Decoded Answer
       </div>
 
       <div className="min-w-0 rounded-xl border border-(--success-border) bg-(--card) p-4 shadow-sm">
@@ -85,7 +77,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
 
         {decodedText ? (
           <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
-            <p className="break-words text-lg font-semibold leading-7 text-(--foreground)">
+            <p className="break-words text-xl font-semibold leading-8 text-(--foreground)">
               {decodedText}
             </p>
           </div>
@@ -97,7 +89,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           </div>
         )}
 
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs text-(--muted-foreground)">Detection Method</p>
             <p className="text-sm font-semibold capitalize text-(--foreground)">
@@ -108,7 +100,7 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           {decodedText && (
             <button
               onClick={handleCopy}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85"
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85"
             >
               <Copy size={15} />
               Copy Result
@@ -116,17 +108,6 @@ export default function ResultCard({ result, error }: ResultCardProps) {
           )}
         </div>
       </div>
-
-      <details className="mt-4 min-w-0 rounded-xl border border-(--border) bg-(--card) p-4">
-        <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-(--foreground)">
-          <FileJson size={16} />
-          API Response Preview
-        </summary>
-
-        <pre className="mt-4 max-h-72 max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--muted) p-4 text-xs leading-6 text-(--foreground)">
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      </details>
     </div>
   );
 }
