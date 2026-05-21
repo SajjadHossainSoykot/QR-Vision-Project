@@ -1,4 +1,4 @@
-import { CheckCircle2, Copy, XCircle } from "lucide-react";
+import { CheckCircle2, Copy, FileJson, XCircle } from "lucide-react";
 
 type ResultCardProps = {
   result: unknown;
@@ -64,49 +64,64 @@ export default function ResultCard({ result, error }: ResultCardProps) {
   if (!result) return null;
 
   return (
-    <div className="mt-6 min-w-0 rounded-xl border border-(--success-border) bg-(--success-bg) p-4 transition-colors sm:p-5">
-      <div className="mb-4 flex items-center gap-2 font-bold text-(--success-text)">
-        <CheckCircle2 size={20} />
-        Decoded Answer
+    <div className="mt-6 min-w-0 space-y-5">
+      <div className="rounded-xl border border-(--success-border) bg-(--success-bg) p-4 transition-colors sm:p-5">
+        <div className="mb-4 flex items-center gap-2 font-bold text-(--success-text)">
+          <CheckCircle2 size={20} />
+          Decoded Answer
+        </div>
+
+        <div className="min-w-0 rounded-xl border border-(--success-border) bg-(--card) p-4 shadow-sm">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-(--muted-foreground)">
+            Main QR Data
+          </p>
+
+          {decodedText ? (
+            <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
+              <p className="break-words text-xl font-semibold leading-8 text-(--foreground)">
+                {decodedText}
+              </p>
+            </div>
+          ) : (
+            <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
+              <p className="text-sm text-(--muted-foreground)">
+                No readable QR text was found in the API response.
+              </p>
+            </div>
+          )}
+
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs text-(--muted-foreground)">
+                Detection Method
+              </p>
+              <p className="text-sm font-semibold capitalize text-(--foreground)">
+                {method}
+              </p>
+            </div>
+
+            {decodedText && (
+              <button
+                onClick={handleCopy}
+                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85"
+              >
+                <Copy size={15} />
+                Copy Result
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="min-w-0 rounded-xl border border-(--success-border) bg-(--card) p-4 shadow-sm">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-(--muted-foreground)">
-          Main QR Data
-        </p>
-
-        {decodedText ? (
-          <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
-            <p className="break-words text-xl font-semibold leading-8 text-(--foreground)">
-              {decodedText}
-            </p>
-          </div>
-        ) : (
-          <div className="rounded-lg border border-(--border) bg-(--muted) p-4">
-            <p className="text-sm text-(--muted-foreground)">
-              No readable QR text was found in the API response.
-            </p>
-          </div>
-        )}
-
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs text-(--muted-foreground)">Detection Method</p>
-            <p className="text-sm font-semibold capitalize text-(--foreground)">
-              {method}
-            </p>
-          </div>
-
-          {decodedText && (
-            <button
-              onClick={handleCopy}
-              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85"
-            >
-              <Copy size={15} />
-              Copy Result
-            </button>
-          )}
+      <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors sm:p-5">
+        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
+          <FileJson size={16} />
+          API Response Preview
         </div>
+
+        <pre className="max-h-80 max-w-full overflow-auto whitespace-pre-wrap break-words rounded-lg border border-(--border) bg-(--card) p-4 text-xs leading-6 text-(--foreground)">
+          {JSON.stringify(result, null, 2)}
+        </pre>
       </div>
     </div>
   );
