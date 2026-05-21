@@ -2,11 +2,10 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
-from io import BytesIO
 import tempfile
 import shutil
-import qrcode
 
+from app.services.qr_generator import generate_qr_buffer
 from app.services.qr_decoder_library import decode_qr_image
 from app.services.qr_decoder_preprocess import decode_qr_with_preprocessing
 from app.services.qr_detector_math import decode_qr_after_math_detection
@@ -52,39 +51,22 @@ def generate_qr(data: str = Form(...)):
     It returns PNG directly from memory.
     """
 
-    if not data or not data.strip():
+    try:
+        image_buffer = generate_qr_buffer(data)
+
+        return StreamingResponse(
+            image_buffer,
+            media_type="image/png",
+            headers={
+                "Content-Disposition": "inline; filename=qr_vision.png"
+            }
+        )
+
+    except Exception as error:
         return {
             "success": False,
-            "message": "QR data cannot be empty."
+            "message": str(error)
         }
-
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        box_size=10,
-        border=4,
-    )
-
-    qr.add_data(data)
-    qr.make(fit=True)
-
-    image = qr.make_image(
-        fill_color="black",
-        back_color="white"
-    )
-
-    image_buffer = BytesIO()
-    image.save(image_buffer, format="PNG")
-    image_buffer.seek(0)
-
-    return StreamingResponse(
-        image_buffer,
-        media_type="image/png",
-        headers={
-            "Content-Disposition": "inline; filename=qr_vision.png"
-        }
-    )
-
 
 def save_upload_temporarily(file: UploadFile) -> str:
     """
