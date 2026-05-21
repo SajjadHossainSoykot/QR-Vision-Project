@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { DragEvent, useState } from "react";
 import { FileImage, Loader2, ScanLine, Upload } from "lucide-react";
 import { decodeQRCode, type DecodeEndpoint } from "@/lib/api";
 import ResultCard from "./ResultCard";
@@ -11,21 +11,58 @@ export default function QRDecodeUploader() {
   const [result, setResult] = useState<unknown>(null);
   const [error, setError] = useState("");
   const [loadingMode, setLoadingMode] = useState<DecodeEndpoint | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const handleFileChange = (selectedFile: File | null) => {
-    setFile(selectedFile);
+  const isValidImageFile = (selectedFile: File) => {
+    return selectedFile.type.startsWith("image/");
+  };
+
+  const handleSelectedFile = (selectedFile: File | null) => {
     setResult(null);
     setError("");
+
+    if (!selectedFile) {
+      return;
+    }
+
+    if (!isValidImageFile(selectedFile)) {
+      setError("Please upload a valid image file such as PNG, JPG, or JPEG.");
+      return;
+    }
+
+    setFile(selectedFile);
 
     if (preview) {
       URL.revokeObjectURL(preview);
     }
 
-    if (selectedFile) {
-      setPreview(URL.createObjectURL(selectedFile));
-    } else {
-      setPreview("");
+    setPreview(URL.createObjectURL(selectedFile));
+  };
+
+  const handleDragOver = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragging(false);
+
+    const droppedFile = event.dataTransfer.files?.[0];
+
+    if (!droppedFile) {
+      return;
     }
+
+    handleSelectedFile(droppedFile);
   };
 
   const handleDecode = async (endpoint: DecodeEndpoint) => {
@@ -66,29 +103,44 @@ export default function QRDecodeUploader() {
             Decode QR Code
           </h2>
           <p className="text-sm text-(--muted-foreground)">
-            Upload a QR image, decode it, and inspect the response.
+            Upload, drag and drop a QR image, then inspect the decoded response.
           </p>
         </div>
       </div>
 
       <div className="grid min-w-0 gap-6 lg:grid-cols-[1fr_360px]">
         <div className="min-w-0 space-y-5">
-          <label className="flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-(--border) bg-(--muted) p-6 text-center transition hover:opacity-85">
+          <label
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={`flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition ${
+              isDragging
+                ? "border-(--primary) bg-(--card) scale-[1.01]"
+                : "border-(--border) bg-(--muted) hover:opacity-85"
+            }`}
+          >
             <Upload className="mb-3 text-(--muted-foreground)" size={34} />
 
             <p className="font-semibold text-(--card-foreground)">
-              Click to upload QR image
+              {isDragging ? "Drop QR image here" : "Click or drag QR image here"}
             </p>
 
             <p className="mt-1 text-sm text-(--muted-foreground)">
               PNG, JPG, JPEG supported
             </p>
 
+            {file && (
+              <p className="mt-3 max-w-full truncate rounded-full border border-(--border) bg-(--card) px-3 py-1 text-xs font-medium text-(--muted-foreground)">
+                Selected: {file.name}
+              </p>
+            )}
+
             <input
               type="file"
               accept="image/*"
               className="hidden"
-              onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
+              onChange={(e) => handleSelectedFile(e.target.files?.[0] || null)}
             />
           </label>
 
