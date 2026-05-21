@@ -705,13 +705,13 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
 | Module | Status |
 |---|---|
 | Repository Setup | Completed |
-| Backend Folder | Added |
-| Frontend Folder | Added |
-| Docs Folder | Added |
-| Jupyter Notebook Experiments | In Progress |
-| QR Code Generation | In Progress |
-| QR Code Detection | In Progress |
-| QR Code Decoding | In Progress |
+| Backend Folder | Completed |
+| Frontend Folder | Completed |
+| Docs Folder | Completed |
+| Jupyter Notebook Experiments | Completed |
+| QR Code Generation | Completed |
+| QR Code Detection | Completed |
+| QR Code Decoding | Completed |
 | Frontend UI | In Progress |
 | API Integration | Planned |
 | Theory Documentation | In Progress |
