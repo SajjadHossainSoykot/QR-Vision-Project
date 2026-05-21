@@ -3,3 +3,4 @@ Test/
 *.log
 *.tmp
 tempCodeRunnerFile.py
+__pycache__/
