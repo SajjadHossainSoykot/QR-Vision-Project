@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Loader2, QrCode } from "lucide-react";
+import { Download, Loader2, QrCode, Server } from "lucide-react";
 import { generateQRCode } from "@/lib/api";
 
 export default function QRGeneratorForm() {
@@ -28,7 +28,9 @@ export default function QRGeneratorForm() {
       const imageUrl = URL.createObjectURL(blob);
       setQrUrl(imageUrl);
     } catch {
-      setError("QR generation failed. Make sure backend is running.");
+      setError(
+        "QR generation failed. The backend may still be waking up. Please try again in a few seconds."
+      );
     } finally {
       setLoading(false);
     }
@@ -78,6 +80,16 @@ export default function QRGeneratorForm() {
             )}
             {loading ? "Generating..." : "Generate QR"}
           </button>
+
+          {loading && (
+            <div className="mt-3 flex items-start gap-2 rounded-xl border border-(--border) bg-(--muted) p-3 text-sm leading-6 text-(--muted-foreground)">
+              <Server className="mt-0.5 shrink-0 animate-pulse" size={16} />
+              <p>
+                Starting QR Vision API... The first request may take a few
+                seconds because the free backend can wake up from sleep.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
