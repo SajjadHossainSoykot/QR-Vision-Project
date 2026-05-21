@@ -1,8 +1,8 @@
 # 📷 QR Vision Project
 
-A full-stack computer vision web application for generating, detecting, decoding, and experimenting with QR codes using **FastAPI**, **OpenCV**, **Next.js**, **TypeScript**, and **Tailwind CSS**.
+A full-stack computer vision web application for generating, detecting, decoding, and scanning QR codes using **FastAPI**, **OpenCV**, **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
-QR Vision Project transforms academic Digital Signal and Image Processing laboratory concepts into a modern interactive web platform where users can generate QR codes, upload QR images, decode QR data, inspect API responses, and understand computer vision based QR processing.
+QR Vision Project transforms academic Digital Signal and Image Processing laboratory concepts into a modern interactive web platform where users can generate QR codes, upload QR images, decode QR data, scan QR codes using a live webcam, inspect API responses, and understand computer vision based QR processing.
 
 ---
 
@@ -24,76 +24,100 @@ https://github.com/SajjadHossainSoykot/QR-Vision-Project
 
 ## 🚀 Project Overview
 
-The **QR Vision Project** is designed for students, developers, and learners who want to understand how QR code generation, detection, decoding, and image preprocessing work in a practical full-stack project.
+The **QR Vision Project** is an educational and portfolio-based full-stack computer vision project.
 
-The project combines:
+It allows users to:
 
-- Python backend development
-- FastAPI REST API
-- OpenCV image processing
-- QR code generation
-- QR code decoding
-- Image upload handling
-- Jupyter Notebook experimentation
-- Next.js frontend development
-- TypeScript-based API integration
-- Responsive UI design
-- Dark/light theme toggle
-- Drag-and-drop file upload
-- Educational QR code theory and documentation
+- Generate QR codes from text or URLs
+- Download generated QR images
+- Upload QR images for decoding
+- Use multiple QR decoding methods
+- Scan QR codes directly using a live webcam
+- View clean decoded output
+- Inspect backend API responses
+- Learn how QR code detection and image processing work
+
+The project connects a **FastAPI + OpenCV backend** with a **Next.js + TypeScript frontend** and demonstrates how image processing concepts can be converted into a real deployed web application.
 
 ---
 
 ## ✨ Current Features
 
-### Backend Features
-
-- FastAPI backend server
-- Live API deployment on Render
-- QR code generation endpoint
-- QR image upload endpoint
-- QR decoding using QR decoding libraries
-- QR decoding with preprocessing
-- QR decoding with mathematical/computer vision based detection
-- Temporary/in-memory file handling for deployment safety
-- CORS support for frontend connection
-- Swagger API documentation
-- Jupyter Notebook experiments for testing logic
-
 ### Frontend Features
 
-- Modern responsive Next.js UI
-- Full-width QR generator section
+- Modern responsive Next.js frontend
+- TypeScript-based component structure
+- Tailwind CSS styling
+- CSS-variable based dark/light theme system
+- Sticky responsive navbar
 - QR code generation from text or URL
 - Generated QR preview
 - Download generated QR image
 - QR image upload section
 - Drag-and-drop QR image upload
-- Uploaded QR image preview
-- Multiple decode methods:
+- Uploaded image preview
+- Multiple QR decode methods:
   - Basic Decode
   - Preprocess Decode
   - Math Detection
 - Clean decoded answer display
-- API response preview section
-- Proper warning state when no QR data is found
-- Proper error state for failed requests
+- API response preview
 - Copy decoded result button
-- CSS-variable based dark/light theme toggle
-- Sticky navbar
-- Mobile-friendly layout
-- Webcam scanner placeholder section
+- Error state for failed API requests
+- Warning state when QR data is not found
+- Live webcam QR scanner
+- Mobile-friendly responsive layout
+- Developer/about section
+- Footer with project/developer links
+
+### Backend Features
+
+- FastAPI backend server
+- Live backend deployment on Render
+- QR code generation endpoint
+- QR image upload endpoint
+- Basic QR decoding endpoint
+- Preprocessing-based QR decoding endpoint
+- Mathematical/computer vision based QR detection endpoint
+- OpenCV-based QR processing
+- Temporary/in-memory file handling for deployment safety
+- CORS support for frontend connection
+- Swagger API documentation
+- Jupyter Notebook experiments for testing image processing logic
+
+---
+
+## 🎥 Live Webcam Scanner
+
+The current version includes a working **webcam QR scanner** on the frontend.
+
+The webcam scanner allows users to:
+
+- Open the device camera from the browser
+- Scan QR codes in real time
+- Decode QR content without uploading an image
+- Display the scanned QR result directly in the UI
+- Copy the scanned result
+- Use the feature on supported desktop and mobile browsers
+
+### Webcam Scanner Notes
+
+- The webcam feature requires browser camera permission.
+- Camera access works best on HTTPS deployed sites.
+- Some browsers may block camera access if permission is denied.
+- Mobile browser support depends on camera permission and device compatibility.
+- The deployed frontend uses HTTPS, so the webcam feature can run properly online.
 
 ---
 
 ## 🌐 Live Backend API
 
-The QR Vision backend API is successfully deployed on Render.
+The QR Vision backend API is deployed on Render.
 
 **Base API URL:**
 
 ```text
-https://qr-vision-ss-api.onrender.com/
+https://qr-vision-ss-api.onrender.com
 ```
 
 **Swagger API Docs:**
@@ -119,34 +143,75 @@ The root API endpoint returns a status response similar to:
 }
 ```
 
-### Public API Notice
+---
 
-This API is publicly accessible because it is deployed online for project demonstration. Other users may be able to call the public endpoints if they know the API URL. However, they cannot modify the backend source code, deployment settings, or repository unless they have access to the owner’s GitHub or Render account.
+## 📡 API Endpoints
 
-For stronger production protection, future improvements may include:
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | Check API running status |
+| POST | `/generate-qr` | Generate QR code from text or URL |
+| POST | `/decode-qr` | Decode uploaded QR image using basic library method |
+| POST | `/decode-qr-preprocess` | Decode uploaded QR image after preprocessing |
+| POST | `/decode-qr-math` | Decode uploaded QR image using mathematical/computer vision detection |
+| GET | `/docs` | Swagger API documentation |
+| GET | `/redoc` | ReDoc API documentation |
 
-- API key authentication
-- Rate limiting
-- File size restrictions
-- Strict CORS configuration
-- Request logging
-- Abuse protection
+---
+
+## 🧑‍💻 Technology Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- CSS Variables
+- Lucide React
+- React Icons
+- Browser MediaDevices API
+- Webcam-based QR scanning library/component
+
+### Backend
+
+- Python
+- FastAPI
+- Uvicorn
+- OpenCV
+- NumPy
+- Pillow
+- qrcode
+- python-multipart
+
+### Experiment and Development Tools
+
+- Jupyter Notebook
+- IPython
+- VS Code
+- Git
+- GitHub
+- npm
+- Python Virtual Environment
+- Render
+- Vercel
 
 ---
 
 ## 🧠 Educational Purpose
 
-This project is created for academic learning and practical understanding of QR code technology, digital image processing, and full-stack computer vision development.
+This project is created for academic learning and practical understanding of QR code technology, digital image processing, computer vision, and full-stack API-based development.
 
-It helps users understand:
+It helps learners understand:
 
 - How QR codes store data
 - How QR codes are generated
 - How QR images are decoded
-- How image preprocessing improves detection
-- How OpenCV can be used in QR/computer vision projects
+- How image preprocessing improves QR detection
+- How OpenCV can be used in image processing projects
 - How a FastAPI backend connects with a Next.js frontend
-- How API responses are handled and displayed in a modern UI
+- How REST API responses are handled in a modern UI
+- How browser webcam scanning can be added to a web application
 
 ---
 
@@ -173,22 +238,21 @@ The three large square finder patterns help scanners detect QR code position, sc
 
 Basic QR code detection follows these steps:
 
-1. Input image is uploaded or captured.
-2. Image is converted into grayscale.
-3. Noise reduction or thresholding may be applied.
-4. QR finder patterns are detected.
-5. QR code boundary is located.
-6. Perspective correction may be applied.
-7. QR matrix is analyzed.
-8. Encoded binary data is decoded into readable text.
+1. An image is uploaded or captured by webcam.
+2. The image frame is processed.
+3. The QR finder patterns are detected.
+4. The QR code boundary is located.
+5. The QR matrix is analyzed.
+6. Encoded binary data is decoded into readable text.
+7. The decoded result is shown in the frontend UI.
 
-This project demonstrates these ideas using Python, OpenCV, FastAPI, and a modern frontend interface.
+For uploaded images, the backend performs decoding through FastAPI and OpenCV-based services.
+
+For webcam scanning, the browser accesses the camera and scans QR codes directly from the live video stream.
 
 ---
 
 ## 🖼 Image Processing Concepts Used
-
-This project may include the following digital image processing concepts:
 
 | Concept | Purpose |
 |---|---|
@@ -201,6 +265,7 @@ This project may include the following digital image processing concepts:
 | Perspective Transform | Corrects tilted QR images |
 | Morphological Operations | Improves binary image structure |
 | QR Decoding | Extracts readable data from QR images |
+| Webcam Frame Scanning | Reads QR data from live camera frames |
 
 ---
 
@@ -222,6 +287,7 @@ The notebook is useful for:
 - Testing OpenCV preprocessing
 - Visualizing intermediate image outputs
 - Debugging image processing logic
+- Testing webcam QR scanner concepts
 - Testing experiments before adding them to API endpoints
 
 ---
@@ -251,6 +317,8 @@ QR-Vision-Project/
 ├── frontend/
 |   ├── src/
 |   |   ├── app/
+|   |   |   ├── about/
+|   |   |   |   └── page.tsx
 |   |   |   ├── layout.tsx
 |   |   |   ├── page.tsx
 |   |   |   └── globals.css
@@ -266,6 +334,9 @@ QR-Vision-Project/
 |   |   |   |   ├── QRDecodeUploader.tsx
 |   |   |   |   ├── ResultCard.tsx
 |   |   |   |   └── WebcamScanner.tsx
+|   |   |   |
+|   |   |   ├── sections/
+|   |   |   |   └── AboutSection.tsx
 |   |   |   |
 |   |   |   └── theme/
 |   |   |       └── ThemeToggle.tsx
@@ -356,12 +427,6 @@ ReDoc API Docs:
 http://127.0.0.1:8000/redoc
 ```
 
-If your `main.py` is directly inside the `backend/` folder instead of `backend/app/`, run:
-
-```bash
-uvicorn main:app --reload
-```
-
 ---
 
 ## ⚙️ Frontend Setup
@@ -404,43 +469,6 @@ http://localhost:3000
 
 ---
 
-## 🧑‍💻 Technology Stack
-
-### Frontend
-
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- CSS Variables
-- Lucide React
-- React Icons
-
-### Backend
-
-- Python
-- FastAPI
-- Uvicorn
-- OpenCV
-- NumPy
-- Pillow
-- qrcode
-- python-multipart
-
-### Experiment and Development Tools
-
-- Jupyter Notebook
-- IPython
-- VS Code
-- Git
-- GitHub
-- npm
-- Python Virtual Environment
-- Render
-- Vercel
-
----
-
 ## 🔗 API Integration
 
 The frontend communicates with the backend using REST API requests.
@@ -468,19 +496,6 @@ Frontend production environment variable:
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://qr-vision-ss-api.onrender.com
 ```
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/` | Check API running status |
-| POST | `/generate-qr` | Generate QR code from text or URL |
-| POST | `/decode-qr` | Decode uploaded QR image using basic library method |
-| POST | `/decode-qr-preprocess` | Decode uploaded QR image after preprocessing |
-| POST | `/decode-qr-math` | Decode uploaded QR image using mathematical/computer vision detection |
-| GET | `/docs` | Swagger API documentation |
 
 ---
 
@@ -554,20 +569,21 @@ No QR data found response:
 
 ## 🎨 Frontend UI Layout
 
-The current frontend layout is:
+The current frontend layout includes:
 
 ```text
 Navbar
 Hero Section
 QR Generator Section
-Decode QR Section
-├── Upload / Drag-and-Drop Box
+Decode QR Upload Section
+├── Drag-and-Drop Upload Box
 ├── Decode Method Buttons
 └── Uploaded QR Preview
 
 Decoded Answer Section
 API Response Preview Section
-Webcam Scanner Placeholder
+Live Webcam Scanner Section
+About Section
 Footer
 ```
 
@@ -575,7 +591,7 @@ Footer
 
 - Sticky navbar
 - QR Vision branding
-- Developer profile footer
+- Developer profile/footer
 - Dark/light theme toggle
 - Full-width QR generator section
 - Generated QR preview
@@ -585,6 +601,7 @@ Footer
 - Decode method buttons
 - Clean decoded answer card
 - API response preview
+- Live webcam scanner
 - Warning state when no QR data is found
 - Error state when backend/API fails
 - Mobile responsive design
@@ -625,47 +642,96 @@ The theme toggle stores user preference in local storage.
 
 | Component | Purpose |
 |---|---|
-| `Navbar.tsx` | Sticky top navbar with project logo and theme toggle |
-| `HeroSection.tsx` | Project title and feature badges |
-| `Footer.tsx` | Developer attribution and GitHub profile link |
+| `Navbar.tsx` | Sticky top navbar with logo, links, and theme toggle |
+| `HeroSection.tsx` | Project title, short intro, and feature badges |
+| `Footer.tsx` | Developer attribution and project links |
 | `QRGeneratorForm.tsx` | Generates QR codes from user input |
 | `QRDecodeUploader.tsx` | Handles QR upload, drag/drop, preview, and decode buttons |
 | `ResultCard.tsx` | Displays decoded answer, warning state, error state, and API preview |
-| `WebcamScanner.tsx` | Placeholder for future live webcam scanning |
+| `WebcamScanner.tsx` | Handles live webcam QR scanning |
+| `AboutSection.tsx` | Displays project details, developer info, tech stack, and links |
 | `ThemeToggle.tsx` | Dark/light theme toggle button |
 
 ---
 
-## 🧪 Backend Feature Plan
+## 🚀 Deployment
 
-The backend supports:
+The project is deployed using separate platforms for frontend and backend.
 
-- QR code generation
-- QR image upload
-- QR code decoding
-- Image preprocessing based decoding
-- Mathematical/computer vision based QR detection
-- Error handling
-- Image format validation
-- API response formatting
-- Swagger UI documentation
-- CORS support for frontend connection
-- Temporary/in-memory storage for deployment safety
+### Frontend Deployment
+
+Platform:
+
+```text
+Vercel
+```
+
+Production frontend URL:
+
+```text
+https://qr-vision-ss.vercel.app
+```
+
+Recommended production environment variable:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=https://qr-vision-ss-api.onrender.com
+```
+
+### Backend Deployment
+
+Platform:
+
+```text
+Render
+```
+
+Production backend API URL:
+
+```text
+https://qr-vision-ss-api.onrender.com
+```
+
+Production API documentation:
+
+```text
+https://qr-vision-ss-api.onrender.com/docs
+```
+
+### Deployment Notes
+
+- The frontend is deployed separately from the backend.
+- The frontend communicates with the backend using the deployed Render API URL.
+- Render free-tier services may sleep after inactivity.
+- The first backend request after inactivity may take a few seconds.
+- Webcam scanning works best on HTTPS, which is supported by the deployed Vercel frontend.
+- Backend image upload decoding is handled through API endpoints.
+- Frontend webcam scanning is handled directly inside the browser.
 
 ---
 
-## 🧠 QR Code Theory Summary
+## 🔐 Public API Access Note
 
-QR codes work by converting data into binary form and placing that binary data inside a two-dimensional grid of black and white modules.
+The backend API is publicly hosted for academic demonstration and portfolio showcasing.
 
-Basic working steps:
+Anyone with the API URL may be able to send requests to the public endpoints.
 
-1. Input text or URL is converted into encoded data.
-2. Error correction data is added.
-3. Data bits are placed inside the QR matrix.
-4. Finder patterns and timing patterns help scanners locate the QR code.
-5. The scanner detects the QR code from an image.
-6. The QR matrix is analyzed and decoded back into readable text.
+However:
+
+- They cannot access private deployment settings.
+- They cannot modify the Render service.
+- They cannot modify the source code unless they have repository access.
+- They can only call the exposed public API routes.
+
+For stronger production protection, future improvements may include:
+
+- API key authentication
+- Request rate limiting
+- Strict CORS origins
+- File upload size limits
+- Request validation
+- Server logging and monitoring
+- Abuse protection
 
 ---
 
@@ -767,7 +833,7 @@ NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8001
 
 ---
 
-### Problem: QR code is not detected
+### Problem: QR code is not detected from uploaded image
 
 Possible causes:
 
@@ -788,6 +854,29 @@ Possible solutions:
 - Keep enough white margin around the QR code
 - Try the preprocessing decode method
 - Try the mathematical detection method
+
+---
+
+### Problem: Webcam scanner is not working
+
+Possible causes:
+
+- Browser camera permission is denied
+- The website is not running on HTTPS
+- Another app is using the camera
+- Browser does not support camera access
+- Camera device is not available
+- QR code is too blurry or too close/far from camera
+
+Possible solutions:
+
+- Allow camera permission in the browser
+- Use the deployed HTTPS site
+- Close other apps using the camera
+- Try Chrome, Edge, or another modern browser
+- Keep the QR code clearly visible inside the camera frame
+- Improve lighting
+- Refresh the page and try again
 
 ---
 
@@ -816,67 +905,6 @@ npm run dev
 
 ---
 
-## 🚀 Deployment
-
-### Frontend Deployment
-
-Recommended platform:
-
-```text
-Vercel
-```
-
-Production frontend URL:
-
-```text
-https://qr-vision-ss.vercel.app
-```
-
-### Backend Deployment
-
-Backend platform:
-
-```text
-Render
-```
-
-Production backend API URL:
-
-```text
-https://qr-vision-ss-api.onrender.com
-```
-
-Production frontend environment variable:
-
-```env
-NEXT_PUBLIC_API_BASE_URL=https://qr-vision-ss-api.onrender.com
-```
-
----
-
-## 🔐 Public API Access Note
-
-The backend API is publicly hosted for demonstration and portfolio showcasing. Anyone with the API URL may be able to send requests to the public endpoints.
-
-However:
-
-- They cannot access the backend source code unless it is public on GitHub.
-- They cannot change the deployment.
-- They cannot modify the Render service.
-- They cannot access private environment settings.
-- They can only call the public API routes.
-
-For production-level security, add:
-
-- API authentication
-- Request rate limiting
-- Stricter CORS origins
-- File upload size limits
-- Request validation
-- Server logging and monitoring
-
----
-
 ## ✅ Current Project Status
 
 | Module | Status |
@@ -898,8 +926,8 @@ For production-level security, add:
 | Decoded Answer UI | Completed |
 | API Response Preview UI | Completed |
 | Responsive Mobile Layout | Completed |
-| Webcam Scanner | Planned / Placeholder |
-| Frontend Deployment | Planned / In Progress |
+| Webcam Scanner | Completed |
+| Frontend Deployment | Completed |
 
 ---
 
@@ -907,8 +935,6 @@ For production-level security, add:
 
 Possible future improvements:
 
-- Add camera-based QR scanner
-- Add live webcam QR scanning
 - Add QR code customization
 - Add QR foreground/background color options
 - Add logo inside generated QR
@@ -920,12 +946,13 @@ Possible future improvements:
 - Add frontend documentation pages
 - Add Docker support
 - Add unit tests
-- Add deployment documentation
 - Add better production error logging
 - Add API key protection
 - Add rate limiting
 - Add stricter CORS for production
-- Add mobile camera scanner support
+- Improve mobile camera scanner controls
+- Add camera switch option for front/back camera
+- Add scan history section
 
 ---
 
@@ -972,6 +999,7 @@ Documentation topics:
 - Error correction
 - Image preprocessing
 - OpenCV QR detection
+- Webcam QR scanning
 - Backend API usage
 - Frontend integration
 - Deployment notes
@@ -1031,22 +1059,13 @@ You must:
 GitHub:  
 https://github.com/SajjadHossainSoykot
 
-Repository:  
-https://github.com/SajjadHossainSoykot/QR-Vision-Project
-
-Live Frontend:  
-https://qr-vision-ss.vercel.app
-
-Live Backend API:  
-https://qr-vision-ss-api.onrender.com/
-
-API Documentation:  
-https://qr-vision-ss-api.onrender.com/docs
+LinkedIn:  
+https://linkedin.com/in/sajjadhossainsoykot
 
 ---
 
 ## ⭐ Final Note
 
-The **QR Vision Project** is an educational full-stack computer vision project that combines QR code theory, Python image processing, OpenCV experiments, Jupyter Notebook testing, FastAPI backend development, and a modern Next.js frontend.
+The **QR Vision Project** is an educational full-stack computer vision project that combines QR code theory, Python image processing, OpenCV experiments, Jupyter Notebook testing, FastAPI backend development, browser webcam scanning, and a modern Next.js frontend.
 
-It is designed as a learning platform where users can understand, generate, detect, and decode QR codes interactively.
+It is designed as a learning platform where users can understand, generate, detect, scan, and decode QR codes interactively.
