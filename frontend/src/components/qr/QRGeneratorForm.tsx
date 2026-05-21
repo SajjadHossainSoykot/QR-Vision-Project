@@ -36,7 +36,7 @@ export default function QRGeneratorForm() {
 
   return (
     <div className="min-w-0 rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
-      <div className="mb-5 flex items-center gap-3">
+      <div className="mb-6 flex items-center gap-3">
         <div className="shrink-0 rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <QrCode size={22} />
         </div>
@@ -51,50 +51,62 @@ export default function QRGeneratorForm() {
         </div>
       </div>
 
-      <textarea
-        value={data}
-        onChange={(e) => setData(e.target.value)}
-        placeholder="Example: https://qr-vision-ss.vercel.app"
-        className="min-h-32 w-full min-w-0 resize-none rounded-xl border border-(--border) bg-(--input) p-4 text-sm text-(--foreground) outline-none transition placeholder:text-(--muted-foreground) focus:ring-2 focus:ring-(--primary)"
-      />
-
-      {error && (
-        <p className="mt-3 text-sm font-medium text-(--error-text)">
-          {error}
-        </p>
-      )}
-
-      <button
-        onClick={handleGenerate}
-        disabled={loading}
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-(--primary) px-5 py-3 font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
-      >
-        {loading ? (
-          <Loader2 className="animate-spin" size={18} />
-        ) : (
-          <QrCode size={18} />
-        )}
-        {loading ? "Generating..." : "Generate QR"}
-      </button>
-
-      {qrUrl && (
-        <div className="mt-6 min-w-0 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
-          <img
-            src={qrUrl}
-            alt="Generated QR Code"
-            className="mx-auto h-56 w-56 max-w-full rounded-lg bg-white p-3 shadow-sm"
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[1fr_320px]">
+        <div className="min-w-0">
+          <textarea
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+            placeholder="Example: https://qr-vision-ss.vercel.app"
+            className="min-h-36 w-full min-w-0 resize-none rounded-xl border border-(--border) bg-(--input) p-4 text-sm text-(--foreground) outline-none transition placeholder:text-(--muted-foreground) focus:ring-2 focus:ring-(--primary)"
           />
 
-          <a
-            href={qrUrl}
-            download="qr-code.png"
-            className="mt-4 inline-flex items-center gap-2 rounded-xl border border-(--border) bg-(--card) px-4 py-2 text-sm font-semibold text-(--card-foreground) shadow-sm transition hover:bg-(--muted)"
+          {error && (
+            <p className="mt-3 text-sm font-medium text-(--error-text)">
+              {error}
+            </p>
+          )}
+
+          <button
+            onClick={handleGenerate}
+            disabled={loading}
+            className="mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-(--primary) px-5 py-3 font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            <Download size={16} />
-            Download QR
-          </a>
+            {loading ? (
+              <Loader2 className="animate-spin" size={18} />
+            ) : (
+              <QrCode size={18} />
+            )}
+            {loading ? "Generating..." : "Generate QR"}
+          </button>
         </div>
-      )}
+
+        <div className="min-w-0 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
+          {qrUrl ? (
+            <>
+              <img
+                src={qrUrl}
+                alt="Generated QR Code"
+                className="mx-auto h-56 w-56 max-w-full rounded-lg bg-white p-3 shadow-sm"
+              />
+
+              <a
+                href={qrUrl}
+                download="qr-code.png"
+                className="mt-4 inline-flex items-center gap-2 rounded-xl border border-(--border) bg-(--card) px-4 py-2 text-sm font-semibold text-(--card-foreground) shadow-sm transition hover:bg-(--muted)"
+              >
+                <Download size={16} />
+                Download QR
+              </a>
+            </>
+          ) : (
+            <div className="flex min-h-56 items-center justify-center rounded-lg border border-dashed border-(--border) bg-(--card) p-6">
+              <p className="text-sm leading-6 text-(--muted-foreground)">
+                Generated QR code preview will appear here.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
