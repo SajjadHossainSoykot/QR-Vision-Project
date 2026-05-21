@@ -11,7 +11,7 @@ export default function Navbar() {
           </div>
 
           <div>
-            <p className="text-sm font-bold text-(--foreground)">QR Vision</p>
+            <p className="text-sm font-bold text-(--foreground)">QR Vision SS</p>
             <p className="text-xs text-(--muted-foreground)">
               Computer Vision QR Toolkit
             </p>
