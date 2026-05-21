@@ -8,8 +8,8 @@ This project transforms academic Digital Signal and Image Processing laboratory 
 
 ## 🔗 Links
 
-Live Website:  
-https://qr-vision-ss.vercel.app
+Live Website (under development): <br>
+<strike> https://qr-vision-ss.vercel.app </strike>
 
 Main Repository:  
 https://github.com/SajjadHossainSoykot/QR-Vision-Project
