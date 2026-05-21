@@ -55,13 +55,13 @@ export default function QRDecodeUploader() {
   };
 
   return (
-    <div className="rounded-2xl border border-(--border) bg-(--card) p-6 text-(--card-foreground) shadow-sm transition-colors">
+    <div className="min-w-0 rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
       <div className="mb-5 flex items-center gap-3">
-        <div className="rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
+        <div className="shrink-0 rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <ScanLine size={22} />
         </div>
 
-        <div>
+        <div className="min-w-0">
           <h2 className="text-xl font-bold text-(--card-foreground)">
             Decode QR Code
           </h2>
@@ -91,17 +91,19 @@ export default function QRDecodeUploader() {
       </label>
 
       {preview && (
-        <div className="mt-5 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
+        <div className="mt-5 min-w-0 rounded-xl border border-(--border) bg-(--muted) p-4 transition-colors">
           <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--card-foreground)">
             <FileImage size={16} />
             Uploaded Image Preview
           </div>
 
-          <img
-            src={preview}
-            alt="Uploaded QR"
-            className="mx-auto max-h-72 rounded-lg object-contain"
-          />
+          <div className="flex justify-center overflow-hidden rounded-xl">
+            <img
+              src={preview}
+              alt="Uploaded QR"
+              className="max-h-72 max-w-full rounded-lg bg-white object-contain p-2"
+            />
+          </div>
         </div>
       )}
 
@@ -112,15 +114,17 @@ export default function QRDecodeUploader() {
               key={endpoint}
               onClick={() => handleDecode(endpoint)}
               disabled={loadingMode !== null}
-              className="flex items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex min-w-0 items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-(--primary-foreground) transition hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loadingMode === endpoint ? (
-                <Loader2 className="animate-spin" size={16} />
+                <Loader2 className="shrink-0 animate-spin" size={16} />
               ) : (
-                <ScanLine size={16} />
+                <ScanLine className="shrink-0" size={16} />
               )}
 
-              {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
+              <span className="break-words text-center">
+                {loadingMode === endpoint ? "Decoding..." : buttonText[endpoint]}
+              </span>
             </button>
           )
         )}

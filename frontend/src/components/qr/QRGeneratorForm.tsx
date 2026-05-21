@@ -35,13 +35,13 @@ export default function QRGeneratorForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-(--border) bg-(--card) p-6 text-(--card-foreground) shadow-sm transition-colors">
+    <div className="min-w-0 rounded-2xl border border-(--border) bg-(--card) p-5 text-(--card-foreground) shadow-sm transition-colors sm:p-6">
       <div className="mb-5 flex items-center gap-3">
-        <div className="rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
+        <div className="shrink-0 rounded-xl bg-(--primary) p-2 text-(--primary-foreground)">
           <QrCode size={22} />
         </div>
 
-        <div>
+        <div className="min-w-0">
           <h2 className="text-xl font-bold text-(--card-foreground)">
             Generate QR Code
           </h2>
@@ -55,7 +55,7 @@ export default function QRGeneratorForm() {
         value={data}
         onChange={(e) => setData(e.target.value)}
         placeholder="Example: https://qr-vision-ss.vercel.app"
-        className="min-h-32 w-full resize-none rounded-xl border border-(--border) bg-(--input) p-4 text-sm text-(--foreground) outline-none transition placeholder:text-(--muted-foreground) focus:ring-2 focus:ring-(--primary)"
+        className="min-h-32 w-full min-w-0 resize-none rounded-xl border border-(--border) bg-(--input) p-4 text-sm text-(--foreground) outline-none transition placeholder:text-(--muted-foreground) focus:ring-2 focus:ring-(--primary)"
       />
 
       {error && (
@@ -78,11 +78,11 @@ export default function QRGeneratorForm() {
       </button>
 
       {qrUrl && (
-        <div className="mt-6 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
+        <div className="mt-6 min-w-0 rounded-xl border border-(--border) bg-(--muted) p-5 text-center transition-colors">
           <img
             src={qrUrl}
             alt="Generated QR Code"
-            className="mx-auto h-56 w-56 rounded-lg bg-white p-3 shadow-sm"
+            className="mx-auto h-56 w-56 max-w-full rounded-lg bg-white p-3 shadow-sm"
           />
 
           <a
