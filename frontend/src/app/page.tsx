@@ -7,8 +7,8 @@ import WebcamScanner from "@/components/qr/WebcamScanner";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <section className="mx-auto max-w-6xl px-5 py-6 sm:py-10">
+    <main className="min-h-screen bg-(--background) text-(--foreground) transition-colors">
+      <section className="mx-auto max-w-6xl px-5 pb-10">
         <Navbar />
 
         <HeroSection />
