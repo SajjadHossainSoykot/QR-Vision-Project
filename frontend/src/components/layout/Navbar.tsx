@@ -31,12 +31,12 @@ export default function Navbar() {
           onClick={closeMenu}
           className="flex min-w-0 items-center gap-3"
         >
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-(--primary) p-2 shadow-sm sm:h-10 sm:w-10 sm:rounded-xl">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-(--primary) p-2 shadow-sm sm:h-10 sm:w-10 sm:rounded-xl">
             <Image
               src="/favicon.ico"
               alt="QR Vision SS Logo"
-              width={48}
-              height={48}
+              width={40}
+              height={40}
               className="h-full w-full object-contain"
               priority
             />
