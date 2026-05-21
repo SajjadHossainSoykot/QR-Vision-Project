@@ -23,13 +23,25 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  const goToTop = () => {
+    closeMenu();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    window.history.replaceState(null, "", "/");
+  };
+
   return (
     <nav className="sticky top-0 z-50 border-b border-(--border) bg-(--background) px-4 py-3 shadow-sm transition-colors sm:px-5 sm:py-4">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
-        <a
-          href="#home"
-          onClick={closeMenu}
-          className="flex min-w-0 items-center gap-3"
+        <button
+          type="button"
+          onClick={goToTop}
+          className="flex min-w-0 cursor-pointer items-center gap-3 text-left"
+          aria-label="Go to top"
         >
           <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-(--primary) p-2 shadow-sm sm:h-10 sm:w-10 sm:rounded-xl">
             <Image
@@ -50,7 +62,7 @@ export default function Navbar() {
               Computer Vision QR Toolkit
             </p>
           </div>
-        </a>
+        </button>
 
         <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
@@ -82,6 +94,7 @@ export default function Navbar() {
           <ThemeToggle />
 
           <button
+            type="button"
             onClick={() => setIsOpen((prev) => !prev)}
             className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-2xl border border-(--border) bg-(--card) text-(--card-foreground) shadow-sm transition hover:bg-(--muted) sm:h-10 sm:w-10 sm:rounded-xl"
             aria-label="Toggle navigation menu"
