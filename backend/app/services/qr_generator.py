@@ -1,24 +1,16 @@
 import qrcode
 from pathlib import Path
+from io import BytesIO
 
 
-def generate_qr_image(data: str, output_path: str) -> str:
+def create_qr_image(data: str):
     """
-    Generate a QR code image from text/URL/input data.
-
-    Args:
-        data: Text, URL, or any string to encode.
-        output_path: Path where generated QR image will be saved.
-
-    Returns:
-        Saved QR image path as string.
+    Create a QR code image object from input text/URL.
+    This does not save the image.
     """
 
     if not data or not data.strip():
         raise ValueError("QR data cannot be empty.")
-
-    output_path = Path(output_path)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     qr = qrcode.QRCode(
         version=1,
@@ -35,6 +27,34 @@ def generate_qr_image(data: str, output_path: str) -> str:
         back_color="white"
     )
 
+    return image
+
+
+def generate_qr_image(data: str, output_path: str) -> str:
+    """
+    Generate QR code image and save it to a file.
+    Useful for local experiments/debugging.
+    """
+
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    image = create_qr_image(data)
     image.save(output_path)
 
     return str(output_path)
+
+
+def generate_qr_buffer(data: str) -> BytesIO:
+    """
+    Generate QR code image and return it as an in-memory PNG buffer.
+    Useful for deployed/stateless API.
+    """
+
+    image = create_qr_image(data)
+
+    image_buffer = BytesIO()
+    image.save(image_buffer, format="PNG")
+    image_buffer.seek(0)
+
+    return image_buffer
