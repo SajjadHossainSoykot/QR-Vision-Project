@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FileImage, Loader2, ScanLine, Upload } from "lucide-react";
 import { decodeQRCode, type DecodeEndpoint } from "@/lib/api";
-import ResultCard from "./ResultCard";
+import ResultCard from "@/components/qr/ResultCard";
 
 export default function QRDecodeUploader() {
   const [file, setFile] = useState<File | null>(null);
