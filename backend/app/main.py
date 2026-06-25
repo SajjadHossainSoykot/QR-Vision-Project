@@ -41,6 +41,14 @@ def root():
             "docs": "/docs"
         }
     }
+    
+@app.get("/health")
+def health_check():
+    return {
+        "success": True,
+        "status": "healthy",
+        "message": "QR Vision API is awake and running."
+    }
 
 
 @app.post("/generate-qr")
