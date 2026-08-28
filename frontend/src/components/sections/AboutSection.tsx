@@ -18,15 +18,19 @@ import {
   FaDiscord,
   FaFacebookF,
   FaGithub,
+  FaGlobe,
   FaInstagram,
   FaLinkedinIn,
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
 
-import { SiCodeforces } from "react-icons/si";
-
 const socialLinks = [
+  {
+    name: "Portfolio Website",
+    href: "https://www.sajjadsoykot.me",
+    icon: FaGlobe,
+  },
   {
     name: "GitHub",
     href: "https://github.com/SajjadHossainSoykot",
@@ -56,11 +60,6 @@ const socialLinks = [
     name: "YouTube",
     href: "https://www.youtube.com/c/sajjadhossainsoykot",
     icon: FaYoutube,
-  },
-  {
-    name: "Codeforces",
-    href: "https://codeforces.com/profile/sajjadsoykot",
-    icon: SiCodeforces,
   },
   {
     name: "Discord",
